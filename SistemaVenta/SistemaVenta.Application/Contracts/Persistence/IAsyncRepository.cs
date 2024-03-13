@@ -1,7 +1,7 @@
 ﻿using SistemaVenta.Domain.Common;
 using System.Linq.Expressions;
 
-namespace SistemaVenta.Application.Persistence
+namespace SistemaVenta.Application.Contracts.Persistence
 {
     public interface IAsyncRepository<T> where T : BaseDomainModel
     {

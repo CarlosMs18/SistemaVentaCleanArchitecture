@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SistemaVenta.Application.Contracts.Persistence;
 using SistemaVenta.Infrastructure.Persistence;
+using SistemaVenta.Infrastructure.Repositories;
 
 namespace SistemaVenta.Infrastructure
 {
@@ -13,6 +15,9 @@ namespace SistemaVenta.Infrastructure
             services.AddDbContext<SistemaVentaDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("ConnectionString"))
             );
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
             return services;
         }
 

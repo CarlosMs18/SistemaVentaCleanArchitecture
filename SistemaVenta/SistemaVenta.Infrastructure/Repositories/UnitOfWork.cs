@@ -11,13 +11,14 @@ namespace SistemaVenta.Infrastructure.Repositories
         private Hashtable _repositories;
         private readonly SistemaVentaDbContext _context;
         private IDbContextTransaction transaction;
-
+        private ICategoryRepository categoryRepository;
         public UnitOfWork(SistemaVentaDbContext context)
         {
             _context = context;
         }
-
         public SistemaVentaDbContext SistemaVentaDbContext => _context;
+
+        public ICategoryRepository CategoryRepository => categoryRepository ??= new CategoryRepository(_context);
 
         public async Task<int> Complete()
         {

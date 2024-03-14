@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SistemaVenta.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using SistemaVenta.Infrastructure.Persistence;
 namespace SistemaVenta.Infrastructure.Migrations
 {
     [DbContext(typeof(SistemaVentaDbContext))]
-    partial class SistemaVentaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240313041557_InitialMigration2")]
+    partial class InitialMigration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

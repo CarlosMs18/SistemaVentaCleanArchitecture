@@ -18,6 +18,8 @@ namespace SistemaVenta.Infrastructure
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
+
+            services.AddScoped<ICategoryRepository, CategoryRepository>();  
             return services;
         }
 

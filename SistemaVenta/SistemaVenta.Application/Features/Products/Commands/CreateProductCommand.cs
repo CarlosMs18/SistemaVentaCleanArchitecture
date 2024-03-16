@@ -69,7 +69,10 @@ namespace SistemaVenta.Application.Features.Products.Commands
             }
 
             var product = (await unitOfWork.ProductRepository.GetAsync(x => x.Name!.Equals(request.Name.ToLower()))).FirstOrDefault();
-
+            if (product is not null)
+            {
+                throw new BadRequestException("The entered product exists");
+            }
             try
             {
                 var productRequest = mapper.Map<Product>(request);

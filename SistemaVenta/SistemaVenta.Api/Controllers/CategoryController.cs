@@ -1,9 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 using SistemaVenta.Application.Features.Categories.Commands;
 using SistemaVenta.Application.Features.Categories.Queries;
-using SistemaVenta.Domain;
+using System.Net;
 
 namespace SistemaVenta.Api.Controllers
 {

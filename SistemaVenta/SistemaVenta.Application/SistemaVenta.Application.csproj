@@ -23,4 +23,8 @@
     <ProjectReference Include="..\SistemaVenta.Domain\SistemaVenta.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Products\Queries\" />
+  </ItemGroup>
+
 </Project>

@@ -41,5 +41,13 @@ namespace SistemaVenta.Api.Controllers
         {
             return Ok(await mediator.Send(request));   
         }
+
+        [HttpDelete("[action]")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<DeleteProductCommand>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<ActionResult> DeleteProduct([FromBody] DeleteProductCommand request)
+        {
+            return Ok(await mediator.Send(request));
+        }
     }
 }

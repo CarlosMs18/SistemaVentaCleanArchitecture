@@ -80,7 +80,6 @@ namespace SistemaVenta.Application.Features.Products.Commands
 
             try
             {
-
                 var productRequest = mapper.Map<Product>(request);
                 unitOfWork.ProductRepository.UpdateEntity(productRequest);
                 await unitOfWork.Complete();
@@ -91,8 +90,7 @@ namespace SistemaVenta.Application.Features.Products.Commands
                 };
             }catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                throw new BadRequestException("An error ocurred while inserting a new product");
+                throw new BadRequestException("An error ocurred while updating a new product");
             }
 
         }

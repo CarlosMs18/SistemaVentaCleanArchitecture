@@ -60,11 +60,6 @@ namespace SistemaVenta.Application.Features.Categories.Commands
             }
             try
             {
-                //var categoryRequest = new Category
-                //{
-                //    Name = request.Name,
-                //    Description = request.Description,
-                //};
                 var categoryRequest = mapper.Map<Category>(request);
                 unitOfWork.CategoryRepository.AddEntity(categoryRequest);
 
@@ -79,7 +74,6 @@ namespace SistemaVenta.Application.Features.Categories.Commands
 
             }catch (Exception ex)
             {
-                Console.WriteLine(ex);
                 throw new BadRequestException("An error ocurred while inserting a new category");
             }
         }

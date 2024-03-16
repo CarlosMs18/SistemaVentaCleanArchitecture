@@ -12,6 +12,7 @@ namespace SistemaVenta.Infrastructure.Repositories
         private readonly SistemaVentaDbContext _context;
         private IDbContextTransaction transaction;
         private ICategoryRepository categoryRepository;
+        private IProductRepository productRepository;
         public UnitOfWork(SistemaVentaDbContext context)
         {
             _context = context;
@@ -19,6 +20,8 @@ namespace SistemaVenta.Infrastructure.Repositories
         public SistemaVentaDbContext SistemaVentaDbContext => _context;
 
         public ICategoryRepository CategoryRepository => categoryRepository ??= new CategoryRepository(_context);
+
+        public IProductRepository ProductRepository => productRepository ??= new ProductRepository(_context);   
 
         public async Task<int> Complete()
         {

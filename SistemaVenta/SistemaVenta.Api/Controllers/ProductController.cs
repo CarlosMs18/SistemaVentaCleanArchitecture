@@ -33,5 +33,13 @@ namespace SistemaVenta.Api.Controllers
         {
             return Ok(await mediator.Send(new GetAllProductQuery { }));
         }
+
+        [HttpPost("[action]")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<UpdateProductCommandResponse>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<ActionResult> UpdateProduct([FromBody] UpdateProductCommand request)
+        {
+            return Ok(await mediator.Send(request));   
+        }
     }
 }

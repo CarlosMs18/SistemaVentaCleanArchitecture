@@ -15,6 +15,7 @@ namespace SistemaVenta.Application.Mappings
             this.AddMapCreateProductCommand();
             this.AddMappingGetAllProductQuery();
             this.AddMapUpdateProductCommand();
+            this.AddMappingGetProductQuery();
         }
     }
 }

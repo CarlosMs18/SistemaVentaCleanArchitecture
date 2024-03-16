@@ -25,6 +25,13 @@ namespace SistemaVenta.Api.Controllers
             return Ok(await mediator.Send(request));
         }
 
+        [HttpGet("[action]/{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<GetProductQueryResponse>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<ActionResult> GetProduct(int id)
+        {
+            return Ok(await mediator.Send(new GetProductQuery { Id = id}));
+        }
 
         [HttpGet("[action]")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<GetAllProductQueryResponse>))]

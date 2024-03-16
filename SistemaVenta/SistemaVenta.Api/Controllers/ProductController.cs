@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SistemaVenta.Application.Features.Products.Commands;
+using SistemaVenta.Application.Features.Products.Queries;
 using System.Net;
 
 namespace SistemaVenta.Api.Controllers
@@ -22,6 +23,15 @@ namespace SistemaVenta.Api.Controllers
         public async Task<ActionResult> CreateProduct([FromBody] CreateProductCommand request)
         {
             return Ok(await mediator.Send(request));
+        }
+
+
+        [HttpGet("[action]")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<GetAllProductQueryResponse>))]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<ActionResult> GetAllProducts()
+        {
+            return Ok(await mediator.Send(new GetAllProductQuery { }));
         }
     }
 }

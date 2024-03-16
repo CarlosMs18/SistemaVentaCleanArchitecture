@@ -1,4 +1,5 @@
-﻿using SistemaVenta.Application.Contracts.Persistence;
+﻿using Microsoft.EntityFrameworkCore;
+using SistemaVenta.Application.Contracts.Persistence;
 using SistemaVenta.Domain;
 using SistemaVenta.Infrastructure.Persistence;
 
@@ -8,6 +9,15 @@ namespace SistemaVenta.Infrastructure.Repositories
     {
         public ProductRepository(SistemaVentaDbContext context) : base(context)
         {
+        }
+
+        public async Task<IEnumerable<Product>> GetProductsByUserId()
+        {
+            var products = await _context.Products
+                                     .Include(x => x.Category)
+                                     .AsNoTracking()
+                                     .ToListAsync();
+            return products;
         }
     }
 }

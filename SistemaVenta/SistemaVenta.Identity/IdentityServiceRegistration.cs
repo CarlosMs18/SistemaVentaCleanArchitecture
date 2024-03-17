@@ -9,6 +9,8 @@ using System.Reflection;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using SistemaVenta.Application.Models;
+using SistemaVenta.Application.Contracts.Identity;
+using SistemaVenta.Identity.Services;
 
 namespace SistemaVenta.Identity
 {
@@ -26,7 +28,7 @@ namespace SistemaVenta.Identity
                    .AddEntityFrameworkStores<SistemaVentaIdentityDbContext>().AddDefaultTokenProviders()
                    //.AddTokenProvider<GoogleAuthenticatorTokenProvider>("TOTP")
                    ;
-            //services.AddTransient<IAuthenticationService, AuthenticationService>();
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
 
             services.AddScoped<UserSession>();
 

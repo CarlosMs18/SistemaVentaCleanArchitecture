@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SistemaVenta.Application\SistemaVenta.Application.csproj" />
+    <ProjectReference Include="..\SistemaVenta.Identity\SistemaVenta.Identity.csproj" />
     <ProjectReference Include="..\SistemaVenta.Infrastructure\SistemaVenta.Infrastructure.csproj" />
   </ItemGroup>
 

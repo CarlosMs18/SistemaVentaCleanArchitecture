@@ -1,7 +1,7 @@
-using MediatR;
 using SistemaVenta.Api.Middleware;
 using SistemaVenta.Application;
 using SistemaVenta.Infrastructure;
+using SistemaVenta.Identity;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,8 +14,9 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddApplicationServices();
+builder.Services.ConfigureIdentityServices(builder.Configuration);
 
 
 var app = builder.Build();
@@ -33,6 +34,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<SessionMiddleware>();
 
 app.UseEndpoints(endpoints =>
 {

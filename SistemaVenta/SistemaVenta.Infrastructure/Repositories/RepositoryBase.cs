@@ -4,17 +4,21 @@ using SistemaVenta.Domain.Common;
 using SistemaVenta.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using SistemaVenta.Identity;
 
 namespace SistemaVenta.Infrastructure.Repositories
 {
     public class RepositoryBase<T> : IAsyncRepository<T> where T : BaseDomainModel
     {
         protected readonly SistemaVentaDbContext _context;
+        protected readonly SistemaVentaIdentityDbContext _identityDbContext;
     
 
-        public RepositoryBase(SistemaVentaDbContext context)
+        public RepositoryBase(SistemaVentaDbContext context, SistemaVentaIdentityDbContext identityDbContext )
         {
             _context = context;
+            _identityDbContext = identityDbContext; 
+
         }
         public async Task<IReadOnlyList<T>> GetAsync()
         {

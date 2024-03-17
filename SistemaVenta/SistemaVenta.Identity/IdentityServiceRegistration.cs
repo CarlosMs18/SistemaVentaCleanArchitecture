@@ -28,7 +28,7 @@ namespace SistemaVenta.Identity
                    ;
             //services.AddTransient<IAuthenticationService, AuthenticationService>();
 
-            //services.AddScoped<UserSession>();
+            services.AddScoped<UserSession>();
 
             services.AddAuthentication(options =>
             {

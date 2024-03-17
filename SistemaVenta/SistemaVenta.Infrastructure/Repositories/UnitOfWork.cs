@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using SistemaVenta.Application.Contracts.Persistence;
 using SistemaVenta.Domain.Common;
+using SistemaVenta.Identity;
 using SistemaVenta.Infrastructure.Persistence;
 using System.Collections;
 
@@ -10,18 +12,20 @@ namespace SistemaVenta.Infrastructure.Repositories
     {
         private Hashtable _repositories;
         private readonly SistemaVentaDbContext _context;
+        private readonly SistemaVentaIdentityDbContext _identityDbContext;  
         private IDbContextTransaction transaction;
         private ICategoryRepository categoryRepository;
         private IProductRepository productRepository;
-        public UnitOfWork(SistemaVentaDbContext context)
+        public UnitOfWork(SistemaVentaDbContext context, SistemaVentaIdentityDbContext identityDbContext)
         {
             _context = context;
+            _identityDbContext = identityDbContext;
         }
         public SistemaVentaDbContext SistemaVentaDbContext => _context;
+        public SistemaVentaIdentityDbContext SistemaIdentityDbContext => _identityDbContext;
+        public ICategoryRepository CategoryRepository => categoryRepository ??= new CategoryRepository(_context,_identityDbContext);
 
-        public ICategoryRepository CategoryRepository => categoryRepository ??= new CategoryRepository(_context);
-
-        public IProductRepository ProductRepository => productRepository ??= new ProductRepository(_context);   
+        public IProductRepository ProductRepository => productRepository ??= new ProductRepository(_context, _identityDbContext);   
 
         public async Task<int> Complete()
         {

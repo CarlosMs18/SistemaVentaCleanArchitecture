@@ -17,6 +17,13 @@ namespace SistemaVenta.Api.Controllers
             this.authentication = authentication;
         }
 
+        [HttpPost("Login")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<ActionResult<AuthenticationResponse>> Login([FromBody] AuthenticationRequest request)
+        {
+            return Ok(await authentication.Login(request));
+        }
 
         [HttpPost("Register")]
         [ProducesResponseType((int)HttpStatusCode.OK)]

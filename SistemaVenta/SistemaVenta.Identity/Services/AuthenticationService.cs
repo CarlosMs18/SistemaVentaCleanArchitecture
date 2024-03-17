@@ -36,6 +36,35 @@ namespace SistemaVenta.Identity.Services
             this.userSession = userSession;
         }
 
+        public async Task<AuthenticationResponse> Login(AuthenticationRequest request)
+        {
+            var user = await userManager.FindByEmailAsync(request.Email);
+
+            if (user == null)
+            {
+                throw new BadRequestException("Invalid login attempt.");
+            }
+            var result = await signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
+            if (result.Succeeded)
+            {
+                var initialDuration = result.RequiresTwoFactor ? jwtSettings.DurationInMinutesFor2FA :
+                    jwtSettings.DurationInMinutesForQR2FA;
+                initialDuration = initialDuration > 0 ? initialDuration : 5;
+
+                var token = await GenerateToken(user, initialDuration);
+                return new AuthenticationResponse
+                {
+                    Id = user.Id,
+                    Token = new JwtSecurityTokenHandler().WriteToken(token),
+                    Email = user.Email,
+                    Username = user.UserName,
+                    Require2FA = result.RequiresTwoFactor
+                };
+            }
+
+            throw new BadRequestException("Invalid login attempt.");
+        }
+
         public async Task<RegistrationResponse> Register(RegistrationRequest request)
         {
             var user_exists = await userManager.FindByEmailAsync(request.Email);   
@@ -50,7 +79,7 @@ namespace SistemaVenta.Identity.Services
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                EmailConfirmed = false,
+                EmailConfirmed = true,
                 TwoFactorEnabled = false
             };
 

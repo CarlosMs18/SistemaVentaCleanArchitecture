@@ -5,5 +5,7 @@ namespace SistemaVenta.Application.Contracts.Identity
     public interface IAuthenticationService
     {
         Task<RegistrationResponse> Register(RegistrationRequest request);
+
+        Task<AuthenticationResponse> Login(AuthenticationRequest request);
     }
 }
